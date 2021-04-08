@@ -83,4 +83,66 @@ public class EmailTest {
 		
 		assertEquals(1, email.getReplyToAddresses().size());
 	}
+	
+	@Test (expected = EmailException.class)//test buildMimeMessage() with pop
+	public void testBuildMimeMessage() throws Exception {
+		
+		email.setHostName("localhost");
+		email.setSmtpPort(0123);
+		email.setFrom("ab@cd.com");
+		email.addTo("ef@gh.com");
+		email.setSubject("subject");
+		email.setCharset("ISO-8859-1");
+		email.setContent("test content", "test/plain" );
+		email.addCc("ab@cd.com");
+		email.addBcc("ef@gf.com");
+		email.addHeader("abc", "123");
+		email.setPopBeforeSmtp(true, "localhost", "username", "password");
+		email.addReplyTo(VALID_EMAIL,NAME);
+		
+		
+		email.buildMimeMessage();
+		
+		//assertEquals(null,email.getMimeMessage());
+	}
+	
+	@Test //(expected = EmailException.class)//test buildMimeMessage() null content
+	public void testBuildMimeMessage2() throws Exception {
+		
+		email.setHostName("localhost");
+		email.setSmtpPort(0123);
+		email.setFrom("ab@cd.com");
+		email.addTo("ef@gh.com");
+		email.setSubject("subject");
+		email.setCharset("ISO-8859-1");
+		email.setContent(null, null );
+		email.addCc("ab@cd.com");
+		email.addBcc("ef@gf.com");
+		email.addHeader("abc", "123");
+		email.addReplyTo(VALID_EMAIL,NAME);
+		
+		
+		email.buildMimeMessage();
+		
+		
+	}
+	
+	@Test (expected = IllegalCharsetNameException.class)//test buildMimeMessage() empty subject
+	public void testBuildMimeMessage3() throws Exception {
+		
+		email.setHostName("localhost");
+		email.setSmtpPort(0123);
+		email.setFrom("ab@cd.com");
+		email.addTo("ef@gh.com");
+		email.setSubject("subject");
+		email.setCharset(EMPTY);
+		email.setContent(null, null);
+		email.addCc("ab@cd.com");
+		email.addBcc("ef@gf.com");
+		email.addHeader("abc", "123");
+		email.addReplyTo(VALID_EMAIL,NAME);
+		
+		email.buildMimeMessage();
+		
+	}
 }
