@@ -176,8 +176,15 @@ public class EmailTest {
 	}
 	
 	@Test //test getSocketConnectionTimeout()
-	public void testGetSocketConnection() {
+	public void testGetSocketConnection() throws Exception{
 		int socketTimeout = email.getSocketTimeout();
 		assertEquals(socketTimeout, email.getSocketConnectionTimeout());
 	}
+	
+	@Test (expected = EmailException.class)//test setfrom(string email)
+	public void testSetFrom() throws Exception{
+		email.setFrom(EMPTY, NAME , "ISO-8859-1");
+		assertEquals(EMPTY, email.setFrom(EMPTY));
+	}
+	
 }
