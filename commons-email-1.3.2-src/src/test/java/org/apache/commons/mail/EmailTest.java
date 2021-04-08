@@ -166,4 +166,12 @@ public class EmailTest {
 		
 		email.getMailSession();
 	}
+	
+	@Test //test getSentDate()
+	public void testGetSentDate() throws Exception {
+		Date todaysDate = new Date();
+		email.setSentDate(todaysDate);
+		
+		assertEquals(todaysDate, email.getSentDate());
+	}
 }
