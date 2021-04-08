@@ -76,4 +76,11 @@ public class EmailTest {
 		
 		assertEquals(null, email.headers.size());
 	}
+	
+	@Test //test addReplyTo(string email string name)
+	public void testAddReplyTo() throws Exception {
+		email.addReplyTo(VALID_EMAIL, NAME);
+		
+		assertEquals(1, email.getReplyToAddresses().size());
+	}
 }
