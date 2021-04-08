@@ -160,4 +160,10 @@ public class EmailTest {
 		assertEquals(null, email.getHostName());
 	}
 	
+	@Test (expected = EmailException.class)//test getMailSession() empty hostname
+	public void testGetMailSessionEmpty() throws Exception {
+		email.setHostName(EMPTY);
+		
+		email.getMailSession();
+	}
 }
